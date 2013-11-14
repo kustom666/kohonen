@@ -1,6 +1,6 @@
 CC=gcc
 LDFLAGS=-lGL
-CFLAGS=-g -std=c99
+CFLAGS=-g -std=c99 -Wall
 bin=kohonen
 
 all: kohonen
