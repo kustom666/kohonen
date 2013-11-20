@@ -21,24 +21,40 @@ int main(int argc, char *argv[])
 
 	potentiel(NeuronSet, &buffData);
 	printNeuronSet(NeuronSet);
-	freeSet(DataSet);
 
-	sfEvent *event;
+	sfContextSettings settings = {24,8,0,2,1};
 	bool cont = true;
 	sfVideoMode mode = {800,600,24};
-	sfWindow *window = sfWindow_create(mode, "OpenGL",2, NULL);
-	sfWindow_display(window);
+	sfWindow *window = sfWindow_create(mode, "OpenGL",sfDefaultStyle, &settings);
 
-	while(cont)
+	glMatrixMode (GL_PROJECTION);
+	glOrtho(0, 200, 0, 200, 0, 1);
+
+	while(sfWindow_isOpen(window))
 	{
-		sfWindow_pollEvent (window, event);
-		if(event->type == sfEvtClosed)
+		sfEvent event;
+
+		while(sfWindow_pollEvent (window, &event))
 		{
-			cont = false;
+			if(event.type == sfEvtClosed)
+			{
+				sfWindow_close(window);
+			}
+			else if(event.type == sfEvtResized)
+			{
+				 glViewport(0, 0, event.size.width, event.size.height);
+				 glOrtho(0, 200, 0, 200, 1, 1);
+			}
 		}
-		//sfWindow_display(window);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glBegin(GL_POINTS);
+			showData(DataSet);
+		glEnd();
+		sfWindow_display(window);
 
 	}
-	sfWindow_close(window);
+
+	freeSet(DataSet);
 	return 0;
 }

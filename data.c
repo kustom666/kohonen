@@ -44,3 +44,13 @@ void SortData(Data **inData, Data *inVect)
 		}
 	}
 }
+
+void showData(Data **inData)
+{
+	glColor3f(0.0,1.0,0.0);
+	
+	for (int i = 0; i < 20; ++i)
+	{
+		glVertex2i(inData[i]->a, inData[i]->b);
+	}
+}

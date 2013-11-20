@@ -1,5 +1,5 @@
 CC=gcc
-LDFLAGS=-L ./lib/ -lcsfml-system -lcsfml-window
+LDFLAGS=-L ./lib/ -lcsfml-system -lcsfml-window -lcsfml-graphics -lopengl32
 CFLAGS=-g -std=c99 -Wall -I ./include/
 bin=kohonen
 
