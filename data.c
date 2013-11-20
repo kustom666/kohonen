@@ -3,7 +3,6 @@
 void InitialiseSet(Data **inData)
 {
 	srand(time(NULL));
-	*inData = (Data *)calloc(20, sizeof(Data));
 	for(int i = 0; i < 20; i++){
 		Data *buffData = malloc(sizeof(Data));
 		buffData->a = rand()%201;
@@ -34,12 +33,13 @@ void SortData(Data **inData, Data *inVect)
 	while(cont != 1)
 	{
 		int indice = rand()%20;
-		if(inData[indice]->a !=-1.0)
+		if(inData[indice]->a !=-1)
 		{
 			inVect->a = inData[indice]->a;
 			inVect->b = inData[indice]->b;
 
-			inData[indice]->a = -1.0;
+			inData[indice]->a = -1;
+			inData[indice]->b = -1;
 			cont = 1;
 		}
 	}

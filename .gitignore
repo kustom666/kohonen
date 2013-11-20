@@ -1,2 +1,4 @@
 kohonen
 *.o
+bin/kohonen
+bin/*.exe

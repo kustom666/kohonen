@@ -1,18 +1,21 @@
 CC=gcc
-LDFLAGS=-lGL
-CFLAGS=-g -std=c99 -Wall
+LDFLAGS=-L ./lib/ -lcsfml-system -lcsfml-window
+CFLAGS=-g -std=c99 -Wall -I ./include/
 bin=kohonen
 
 all: kohonen
 
-kohonen: main.o data.o
-	$(CC) -o $(bin) main.o data.o $(LDFLAGS)
+kohonen: main.o data.o neuron.o
+	$(CC) -o bin/$(bin) main.o data.o neuron.o $(LDFLAGS)
 
 main.o: main.c
 	$(CC) -c main.c $(CFLAGS)
 
-data.o: data.c
+data.o: data.c data.h
 	$(CC) -c data.c $(CFLAGS)
+
+neuron.o: neuron.c neuron.h
+	$(CC) -c neuron.c $(CFLAGS)
 
 clean:
 	rm -rf *.o
