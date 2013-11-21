@@ -1,13 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <glut.h>
 #include <SFML/OpenGL.h>
 #include <SFML/Window.h>
 #include "data.h"
 #include "neuron.h"
 
 
-int main(int argc, char *argv[])
+int test(int argc, char *argv[])
 {
 	bool cont = true;
 	int max = 0;
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
 
 	while(cont)
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		/** Logique de kohonen
 		*
@@ -56,11 +58,10 @@ int main(int argc, char *argv[])
 				glViewport(0, 0, event.size.width, event.size.height);
 			}
 		}
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glBegin(GL_POINTS);
 			showData(DataSet);
-			showNeuron(NeuronSet);
+			//showNeuron(NeuronSet);
 		glEnd();
 
 		sfWindow_display(window);
