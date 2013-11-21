@@ -28,14 +28,15 @@ void InitialiseNeuronSet(Neuron **inNeuron)
 	srand(time(NULL));
 	for(int i = 0; i < 20; i++){
 		Neuron *buffNeuron = malloc(sizeof(Neuron));
-
+		buffNeuron->wix = i+90;
+		buffNeuron->wiy = i+90;
 		inNeuron[i] = buffNeuron; 
 	}
 }
 
 int gagnant(Neuron **NeuronSet)
 {
-	int indice;
+	int indice = 0;
 	float buffActivite = NeuronSet[0]->activite;
 
 	for (int i = 0; i < 20; ++i)
@@ -50,9 +51,19 @@ int gagnant(Neuron **NeuronSet)
 
 void calculPoids(float pas, Neuron **NeuronSet, int rang, Data inVecteur)
 {
-	for (int i = rang-2; i < rang+2; ++i)
+	if (rang >= 2)
 	{
-		NeuronSet[i]->wix += pas + abs(inVecteur.a - NeuronSet[i]->wix) * phi(rang, i);
+		for (int i = rang-2; i < rang+2; ++i)
+		{
+			NeuronSet[i]->wix += pas + inVecteur.a - NeuronSet[i]->wix * phi(rang, i);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < rang+2; ++i)
+		{
+			NeuronSet[i]->wix += pas + inVecteur.a - NeuronSet[i]->wix * phi(rang, i);
+		}
 	}
 }
 
@@ -72,4 +83,14 @@ float phi(int rangWinner, int rang)
 		retour = 1;
 	}
 	return retour;
+}
+
+void showNeuron(Neuron **inNeuronSet)
+{
+	glColor3f(1.0,0.0,0.0);
+	
+	for (int i = 0; i < 20; ++i)
+	{
+		glVertex2i(inNeuronSet[i]->wix, inNeuronSet[i]->wiy);
+	}
 }
